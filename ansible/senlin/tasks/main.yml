@@ -39,7 +39,7 @@
 
 - name: create ca-certificates directory
   file:
-    path: "/etc/kolla/{{ item.key }}/ca-certificates
+    path: "/etc/kolla/{{ item.key }}/ca-certificates"
     state: directory
     owner: root
     group: root
@@ -51,7 +51,7 @@
 - name: copy root.crt
   copy:
     src: root.crt
-    dest: "/etc/kolla/{{ item.key }}/ca-certificates/root.crt
+    dest: "/etc/kolla/{{ item.key }}/ca-certificates/root.crt"
     owner: root
     group: root
     mode: 0644

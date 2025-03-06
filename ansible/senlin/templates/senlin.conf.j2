@@ -53,7 +53,7 @@ cafile = /etc/ssl/certs/ca-certificates.crt
 region_name = {{ region }}
 memcache_security_strategy = ENCRYPT
 memcache_secret_key = {{ memcache_secret_key }}
-memcached_servers = {{ clt1 }}:11211,{{ ctl2 }}:11211,{{ ctl3 }}:11211
+memcached_servers = {{ ctl1 }}:11211,{{ ctl2 }}:11211,{{ ctl3 }}:11211
 
 [oslo_messaging_notifications]
 transport_url = rabbit://{{ rabbitmq_user }}:{{ rabbitmq_password }}@{{ rabbitmq_vip }}:5672
