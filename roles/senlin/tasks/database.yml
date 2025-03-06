@@ -1,0 +1,31 @@
+- name: Creating Senlin database
+  become: true
+  community.mysql.mysql_db:
+    login_host: "{{ database_address }}"
+    login_port: "{{ database_port }}"
+    login_user: "{{ database_user }}"
+    login_password: "{{ database_password }}"
+    name: "{{ senlin_database_name }}"
+    state: present
+  run_once: true
+  delegate_to: "{{ groups['senlin-api'][0] }}"
+  when:
+    - not use_preconfigured_databases | bool
+
+- name: Creating Senlin database user and setting permissions
+  become: true
+  community.mysql.mysql_user:
+    login_host: "{{ database_address }}"
+    login_port: "{{ database_port }}"
+    login_user: "{{ database_user }}"
+    login_password: "{{ database_password }}"
+    name: "{{ senlin_database_user }}"
+    password: "{{ senlin_database_password }}"
+    host: "%"
+    priv: "{{ senlin_database_name }}.*:ALL"
+    append: true
+    state: present
+  run_once: true
+  delegate_to: "{{ groups['senlin-api'][0] }}"
+  when:
+    - not use_preconfigured_databases | bool

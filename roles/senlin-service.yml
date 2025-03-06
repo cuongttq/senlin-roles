@@ -1,0 +1,8 @@
+---
+- name: Start setup Senlin service
+  hosts: all
+  become: true
+  roles:
+    - role: senlin
+      tags: senlin
+      tasks_from: deploy.yml

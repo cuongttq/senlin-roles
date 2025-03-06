@@ -1,0 +1,19 @@
+---
+- name: Merge variables with error handling
+  set_fact:
+    merged_vars: >-
+      {{
+        (lookup('ansible.builtin.file', 'roles/my_role/defaults/main.yml', errors='ignore') | from_yaml | default({})) |
+        combine(
+          (lookup('ansible.builtin.file', '/etc/kolla/globals.yml', errors='ignore') | from_yaml | default({})),
+          (lookup('ansible.builtin.file', '/usr/local/share/kolla-ansible/ansible/group_vars/site.yml', errors='ignore') | from_yaml | default({})),
+          recursive=True
+        )
+      }}
+
+- name: Extract merged variables into individual facts
+  set_fact:
+    "{{ merged_vars }}"
+
+- import_tasks: config.yml
+- import_tasks: database.yml

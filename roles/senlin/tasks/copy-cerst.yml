@@ -1,0 +1,8 @@
+---
+- name: "{{ project_name }} | Copying over extra CA certificates"
+  become: true
+  copy:
+    src: "{{ kolla_certificates_dir }}/ca/"
+    dest: "{{ node_config_directory }}/{{ item.key }}/ca-certificates"
+    mode: "0644"
+  with_dict: "{{ senlin_services }}"
