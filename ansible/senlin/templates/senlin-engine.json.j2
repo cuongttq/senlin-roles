@@ -1,0 +1,27 @@
+{
+    "command": "senlin-engine --config-file /etc/senlin/senlin.conf",
+    "config_files": [
+        {
+            "source": "/var/lib/kolla/config_files/senlin.conf",
+            "dest": "/etc/senlin/senlin.conf",
+            "owner": "senlin",
+            "perm": "0600"
+        },{
+            "source": "/var/lib/kolla/config_files/senlin.conf",
+            "dest": "/vcd_sdk.log",
+            "owner": "senlin",
+            "perm": "0777"
+        },{
+            "source": "/var/lib/kolla/config_files/senlin.conf",
+            "dest": "/vcd_pysdk.log",
+            "owner": "senlin",
+            "perm": "0777"
+        }    ],
+    "permissions": [
+        {
+            "path": "/var/log/kolla/senlin",
+            "owner": "senlin:senlin",
+            "recurse": true
+        }
+    ]
+}

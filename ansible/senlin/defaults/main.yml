@@ -1,0 +1,39 @@
+---
+senlin_services:
+  senlin-api:
+    group: senlin-api
+  senlin-conductor:
+    group: senlin-conductor
+  senlin-engine:
+    group: senlin-engine
+  senlin-health-manager:
+    group: senlin-health-manager  
+
+
+host_ip: "{{ ansible_eth0.ipv4.address }}"
+
+vip_internal: 10.10.10.200
+
+ctl1: 10.10.10.55
+
+ctl2: 10.10.10.5
+
+ctl3: 10.10.10.17
+
+region: RegionOne
+
+database_address: 10.10.10.100
+
+rabbitmq_vip: 10.10.10.100
+
+senlin_workers: 10
+
+rabbitmq_user: openstack
+
+rabbitmq_password: 
+
+senlin_database_password: 
+
+senlin_keystone_password: 
+
+memcache_secret_key: 

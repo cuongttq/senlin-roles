@@ -1,0 +1,60 @@
+---
+- name: Ensuring config directories exist
+  file:
+    path: "/etc/kolla/{{ item.key }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0770"
+  become: true
+  when:
+    - inventory_hostname in groups[item.value.group]
+  with_dict: "{{ senlin_services }}"
+
+- name: Copying over config.json files for services
+  template:
+    src: "{{ item.key }}.json.j2"
+    dest: "/etc/kolla/{{ item.key }}/config.json"
+    owner: "root"
+    group: "root"
+    mode: "0660"
+  become: true
+  when:
+    - inventory_hostname in groups[item.value.group]
+  with_dict: "{{ senlin_services }}"
+
+- name: Copying over senlin.conf
+  vars:
+    service_name: "{{ item.key }}"
+  template:
+    src: senlin.conf.j2
+    dest: "/etc/kolla/{{ item.key }}/senlin.conf"
+    owner: "root"
+    group: "root"
+    mode: "0660"
+  become: true
+  when:
+    - inventory_hostname in groups[item.value.group]
+  with_dict: "{{ senlin_services }}"
+
+- name: create ca-certificates directory
+  file:
+    path: "/etc/kolla/{{ item.key }}/ca-certificates
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - inventory_hostname in groups[item.value.group]
+  with_dict: "{{ senlin_services }}"
+
+- name: copy root.crt
+  copy:
+    src: root.crt
+    dest: "/etc/kolla/{{ item.key }}/ca-certificates/root.crt
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - inventory_hostname in groups[item.value.group]
+  with_dict: "{{ senlin_services }}"

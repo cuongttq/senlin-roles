@@ -1,0 +1,6 @@
+---
+- name: Setup Senlin service config
+  hosts: all
+  become: true
+  roles:
+    - { role: senlin , tags: ["senlin"] }

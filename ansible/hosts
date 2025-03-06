@@ -1,0 +1,12 @@
+[senlin]
+osp-1
+osp-2
+osp-3
+[senlin-api:children]
+senlin
+[senlin-conductor:children]
+senlin
+[senlin-engine:children]
+senlin
+[senlin-health-manager:children]
+senlin
